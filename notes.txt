@@ -1,0 +1,46 @@
+// (succeeded: Bool, error: NSError?) is now (succeeded, error)
+
+AND
+
+// UIApplication.shared() is now UIApplication.shared
+
+AND
+
+// UIDevice.current() is now UIDevice.current
+
+AND
+
+// AttributedString(string: "Pull to refresh") is now NSAttributedString(string: "Pull to refresh")
+
+AND
+
+// rotation.scaleBy(x: scale, y: scale) is now rotation.scaledBy(x: scale, y: scale)
+
+AND 
+
+// SKColor.green() is now SKColor.green
+
+AND 
+
+// SKColor.blue() is now SKColor.blue
+
+AND
+
+// SKColor.red() is now SKColor.red
+
+AND
+
+// UIColor.white() is now UIColor.white
+
+AND
+
+// UIColor.black() is now UIColor.black
+
+AND
+
+// segue.destinationViewController is now segue.destination
+
+AND 
+
+// Bundle.main.pathForResource("test", ofType: "wav") is now Bundle.main.path(forResource: "test", ofType: "wav")
+
