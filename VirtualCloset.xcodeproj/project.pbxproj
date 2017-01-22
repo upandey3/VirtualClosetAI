@@ -18,6 +18,8 @@
 		81BA817F1A49E0F000E65899 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA817E1A49E0F000E65899 /* libstdc++.6.dylib */; };
 		EC26173E878E0214455F74DC /* Pods_VirtualCloset.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B556D2D6D97556AAB8F8D7E2 /* Pods_VirtualCloset.framework */; };
 		FC2FCFF61E34949700C9FA5B /* Outfits.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2FCFF51E34949700C9FA5B /* Outfits.swift */; };
+		FC5DDE9C1E3540640053EF6F /* Camera Button.png in Resources */ = {isa = PBXBuildFile; fileRef = FC5DDE9A1E3540640053EF6F /* Camera Button.png */; };
+		FC5DDE9D1E3540640053EF6F /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FC5DDE9B1E3540640053EF6F /* Icon.png */; };
 		FC6C95651E32FEA10061741B /* RecoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6C95641E32FEA10061741B /* RecoViewController.swift */; };
 		FC6C95671E3343860061741B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC6C95661E3343860061741B /* Main.storyboard */; };
 		FC6C956D1E3358070061741B /* shirt icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FC6C956C1E3358070061741B /* shirt icon.png */; };
@@ -44,6 +46,8 @@
 		81BA81801A49E10C00E65899 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		B556D2D6D97556AAB8F8D7E2 /* Pods_VirtualCloset.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VirtualCloset.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC2FCFF51E34949700C9FA5B /* Outfits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Outfits.swift; path = ../Outfits.swift; sourceTree = "<group>"; };
+		FC5DDE9A1E3540640053EF6F /* Camera Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Camera Button.png"; path = "../../../Downloads/Camera Button.png"; sourceTree = "<group>"; };
+		FC5DDE9B1E3540640053EF6F /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../../../Downloads/Icon.png; sourceTree = "<group>"; };
 		FC6C95641E32FEA10061741B /* RecoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoViewController.swift; sourceTree = "<group>"; };
 		FC6C95661E3343860061741B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		FC6C956C1E3358070061741B /* shirt icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shirt icon.png"; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 				81BA814C1A49DA1800E65899 /* ViewController.swift */,
 				FC2FCFF51E34949700C9FA5B /* Outfits.swift */,
 				FC6C95721E33F1EE0061741B /* IMG_3492.jpg */,
+				FC5DDE9A1E3540640053EF6F /* Camera Button.png */,
+				FC5DDE9B1E3540640053EF6F /* Icon.png */,
 				FC6C956C1E3358070061741B /* shirt icon.png */,
 				FC6C95821E3440940061741B /* SwipeCollectionViewCell.swift */,
 				FC6C95841E3441D50061741B /* SwipeViewController.swift */,
@@ -210,8 +216,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC5DDE9D1E3540640053EF6F /* Icon.png in Resources */,
 				FC6C956D1E3358070061741B /* shirt icon.png in Resources */,
 				FC6C95731E33F1EE0061741B /* IMG_3492.jpg in Resources */,
+				FC5DDE9C1E3540640053EF6F /* Camera Button.png in Resources */,
 				814C3ACB1B69877600E307BB /* Images.xcassets in Resources */,
 				FC6C95671E3343860061741B /* Main.storyboard in Resources */,
 			);

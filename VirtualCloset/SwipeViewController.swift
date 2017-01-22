@@ -25,7 +25,13 @@ class SwipeViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let temperature = getTemperature(city: "Chicago")
+        
+        let city = City
+        if City == ""{
+            City = "Chicago"
+        }
+        
+        let temperature = getTemperature(city: city)
         
         let object = Outfits()
         concepts = object.getConcepts(input_temperature : temperature)
@@ -58,194 +64,7 @@ class SwipeViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         return cell
         
-    }/*
-     func pickOutfits()
-     {
-     //     let semaphoretwo = DispatchSemaphore(value: 0)
-     index = 0
-     self.arrayBottom.removeAll()
-     self.arrayTop.removeAll()
-     self.arrayWool.removeAll()
-     self.array.removeAll()
-     
-     print("Reached 71")
-     let query = PFQuery(className: "Images")
-     print("Reached 73")
-     
-     
-     query.whereKey("UserId", equalTo: (PFUser.current()?.objectId)!)
-     query.findObjectsInBackground(block: { (objects, error) in
-     if error != nil {
-     print("Reached 79")
-     
-     print("\nUnable to get users \(error!)")
-     } else {
-     
-     print("Reached 83")
-     
-     if let obj2 = objects{
-     
-     print("The size of PFObjects array is \(obj2.count)")
-     for a in obj2 {
-     print("\(a["concept"])")
-     }
-     
-     }
-     
-     print("Reached 97")
-     
-     if let images = objects{
-     
-     // if there are images uploaded by the user
-     if images.count > 0{
-     
-     print("Concepts are \(self.concepts)")
-     print("Reached 104")
-     for image in images{
-     
-     if (((image["concept"] as? String) == self.concepts[0]) || ((image["concept"] as? String) == self.concepts[1])){
-     
-     print("Match")
-     print(image["imageFile"])
-     if let imageFile = image["imageFile"] as? PFFile {
-     print("entered imageFile block")
-     let datao = try! imageFile.getData()
-     
-     
-     print("reached 118")
-     if let pic = UIImage(data: datao){
-     
-     self.top.append(pic)
-     print("Success at top")
-     }else{
-     print("Not appending")
-     }
-     
-     
-     /*        imageFile.getDataInBackground(block: { (data, error) in
-     DispatchQueue.main.sync(execute: {
-     if error != nil {
-     print(error!)
-     }else{
-     if let nsdata = data{
-     print("reached 118")
-     if let pic = UIImage(data: nsdata){
-     
-     self.top.append(pic)
-     print("Success at top")
-     }else{
-     print("Not appending")
-     }
-     }
-     }
-     //           DispatchQueue.sync()
-     //    semaphoretwo.signal()
-     })
-     })    */
-     //  semaphoretwo.wait()
-     } else {
-     
-     print("PFFIle not converting")
-     }
-     } else if (image["concept"] as? String) == self.concepts[1]{
-     if let imageFile = image["imageFile"] as? PFFile {
-     imageFile.getDataInBackground(block: { (data, error) in
-     if error != nil {
-     print(error!)
-     }else{
-     if let nsdata = data{
-     if let pic = UIImage(data: nsdata){
-     
-     self.bottom.append(pic)
-     print("Success at bottom")
-     }else{
-     print("Not appending")
-     }
-     }
-     }
-     })
-     } else {
-     
-     print("PFFIle not converting")
-     }
-     } else if (image["concept"] as? String) == self.concepts[2]{
-     
-     if let imageFile = image["imageFile"] as? PFFile {
-     imageFile.getDataInBackground() { (data, error) in
-     if error != nil {
-     print(error!)
-     }else{
-     if let nsdata = data{
-     if let pic = UIImage(data: nsdata){
-     
-     self.wool.append(pic)
-     print("Success at wool")
-     }else{
-     print("Not appending")
-     }
-     }
-     }
-     //        semaphoretwo.signal()
-     }
-     
-     //         semaphoretwo.wait()
-     
-     //  semaphoretwo.wait()
-     } else {
-     
-     print("PFFIle not converting")
-     }
-     }
-     }
-     print("Reached 158")
-     print("\(self.top.count)")
-     print("\(self.bottom.count)")
-     print("\(self.wool.count)")
-     let maxCount = max(self.bottom.count, self.wool.count, self.top.count)
-     print("Reached 158")
-     print("Max count is \(maxCount)")
-     var i = 0
-     while i < maxCount{
-     if self.bottom.count > 0 {
-     self.arrayBottom[i] = self.bottom[i % self.bottom.count]
-     }else{
-     self.arrayBottom.append(UIImage())
-     }
-     
-     if self.top.count > 0 {
-     self.arrayTop[i] = self.top[i % self.top.count]
-     }else{
-     self.arrayTop.append(UIImage())
-     }
-     
-     if self.wool.count > 0 {
-     self.arrayWool[i] = self.wool[i % self.wool.count]
-     }else{
-     self.arrayWool.append(UIImage())
-     }
-     i += 1
-     }
-     print("Reached 184")
-     
-     self.bottom.removeAll()
-     self.top.removeAll()
-     self.wool.removeAll()
-     print(self.bottom)
-     
-     print("Reached 191")
-     
-     /*
-     self.array[0] = self.arrayTop[0]
-     self.array[1] = self.arrayBottom[0]
-     self.array[2] = self.arrayWool[0]
-     */
-     
-     }
-     }
-     }
-     })
-     
-     }*/
+    }
     func pickOutfits()
     {
         //     let semaphoretwo = DispatchSemaphore(value: 0)

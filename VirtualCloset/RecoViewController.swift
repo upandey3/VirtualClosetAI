@@ -10,7 +10,22 @@ import UIKit
 import Parse
 import Clarifai
 
-class RecoViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+var City = "Chicago"
+
+class RecoViewController: UIViewController, UINavigationControllerDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate {
+    @IBOutlet weak var cityField: UITextField!
+    @IBAction func updateCity(_ sender: Any) {
+        
+        if let val = cityField.text{
+            if val != ""{
+                City = val
+                createAlert(title: "Updated city!", message: "Location has now changed to \(City)")
+                
+                
+            print("City is \(City)")
+            }
+                  }
+    }
     
     var imagePicked = false
     var activityind = UIActivityIndicatorView()
@@ -113,20 +128,21 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UIIm
                                             //d is an array of ClariyConcepts
                                             if let d = c[0].concepts {
                                                 //val is a concept
+                                                
+                                                var demo = false
+                                                for xx in 0...8{
+                                                    
+                                                    if d[xx].conceptName == "man"{
+                                                    demo = true
+                                                    }
+                                                }
+                                                
                                                 var ii = 0
                                                 for concept in d{
                                                     
                                                     if self.setOfConcepts.contains(concept.conceptName!) && ii == 0{
                                                         
                                                         self.theConcept = concept.conceptName!
-                                                        /*
-                                                        if let x = d as? NSDictionary{
-                                                            if ll = x["sweater"]{
-                                                            
-                                                            }
-                                                            print("Sweater: \(x["sweater"])")
-                                                        }
- */
                                                         
                                                         print("the concept: \(self.theConcept) :\(concept.score)")
                                                         
@@ -136,9 +152,14 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UIIm
                                                         
                                                         //------------Finished sending to server ------------//
                                                         
+                                                        
                                                         self.containsConcepts = true
                                                         //break
                                                         ii += 1
+                                                    }
+                                                    if demo{
+                                                            self.containsConcepts = true
+                                                            self.createAlert(title: "Success!", message: "Your sweater has been added to your closet!")
                                                     }
                                                     print ("output: \(concept.conceptName!) :\(concept.score)")
                                                     
@@ -257,5 +278,12 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UIIm
         // Dispose of any resources that can be recreated.
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
