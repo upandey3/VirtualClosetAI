@@ -29,16 +29,14 @@ class SwipeViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         let object = Outfits()
         concepts = object.getConcepts(input_temperature : temperature)
+        print("Concepts are \(self.concepts)")
         
         let mainFrameGesture = UIPanGestureRecognizer(target: self, action: #selector(self.wasDragged(gestureRecognizer:)))
         
         imageFrame.isUserInteractionEnabled = true
         imageFrame.addGestureRecognizer(mainFrameGesture)
         
-        //concepts = ["shirt", "pants", "jacket"]
-        
         pickOutfits()
-        //array.removeAll()
         
         // Do any additional setup after loading the view.
     }
@@ -60,9 +58,197 @@ class SwipeViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         return cell
         
-    }
+    }/*
+     func pickOutfits()
+     {
+     //     let semaphoretwo = DispatchSemaphore(value: 0)
+     index = 0
+     self.arrayBottom.removeAll()
+     self.arrayTop.removeAll()
+     self.arrayWool.removeAll()
+     self.array.removeAll()
+     
+     print("Reached 71")
+     let query = PFQuery(className: "Images")
+     print("Reached 73")
+     
+     
+     query.whereKey("UserId", equalTo: (PFUser.current()?.objectId)!)
+     query.findObjectsInBackground(block: { (objects, error) in
+     if error != nil {
+     print("Reached 79")
+     
+     print("\nUnable to get users \(error!)")
+     } else {
+     
+     print("Reached 83")
+     
+     if let obj2 = objects{
+     
+     print("The size of PFObjects array is \(obj2.count)")
+     for a in obj2 {
+     print("\(a["concept"])")
+     }
+     
+     }
+     
+     print("Reached 97")
+     
+     if let images = objects{
+     
+     // if there are images uploaded by the user
+     if images.count > 0{
+     
+     print("Concepts are \(self.concepts)")
+     print("Reached 104")
+     for image in images{
+     
+     if (((image["concept"] as? String) == self.concepts[0]) || ((image["concept"] as? String) == self.concepts[1])){
+     
+     print("Match")
+     print(image["imageFile"])
+     if let imageFile = image["imageFile"] as? PFFile {
+     print("entered imageFile block")
+     let datao = try! imageFile.getData()
+     
+     
+     print("reached 118")
+     if let pic = UIImage(data: datao){
+     
+     self.top.append(pic)
+     print("Success at top")
+     }else{
+     print("Not appending")
+     }
+     
+     
+     /*        imageFile.getDataInBackground(block: { (data, error) in
+     DispatchQueue.main.sync(execute: {
+     if error != nil {
+     print(error!)
+     }else{
+     if let nsdata = data{
+     print("reached 118")
+     if let pic = UIImage(data: nsdata){
+     
+     self.top.append(pic)
+     print("Success at top")
+     }else{
+     print("Not appending")
+     }
+     }
+     }
+     //           DispatchQueue.sync()
+     //    semaphoretwo.signal()
+     })
+     })    */
+     //  semaphoretwo.wait()
+     } else {
+     
+     print("PFFIle not converting")
+     }
+     } else if (image["concept"] as? String) == self.concepts[1]{
+     if let imageFile = image["imageFile"] as? PFFile {
+     imageFile.getDataInBackground(block: { (data, error) in
+     if error != nil {
+     print(error!)
+     }else{
+     if let nsdata = data{
+     if let pic = UIImage(data: nsdata){
+     
+     self.bottom.append(pic)
+     print("Success at bottom")
+     }else{
+     print("Not appending")
+     }
+     }
+     }
+     })
+     } else {
+     
+     print("PFFIle not converting")
+     }
+     } else if (image["concept"] as? String) == self.concepts[2]{
+     
+     if let imageFile = image["imageFile"] as? PFFile {
+     imageFile.getDataInBackground() { (data, error) in
+     if error != nil {
+     print(error!)
+     }else{
+     if let nsdata = data{
+     if let pic = UIImage(data: nsdata){
+     
+     self.wool.append(pic)
+     print("Success at wool")
+     }else{
+     print("Not appending")
+     }
+     }
+     }
+     //        semaphoretwo.signal()
+     }
+     
+     //         semaphoretwo.wait()
+     
+     //  semaphoretwo.wait()
+     } else {
+     
+     print("PFFIle not converting")
+     }
+     }
+     }
+     print("Reached 158")
+     print("\(self.top.count)")
+     print("\(self.bottom.count)")
+     print("\(self.wool.count)")
+     let maxCount = max(self.bottom.count, self.wool.count, self.top.count)
+     print("Reached 158")
+     print("Max count is \(maxCount)")
+     var i = 0
+     while i < maxCount{
+     if self.bottom.count > 0 {
+     self.arrayBottom[i] = self.bottom[i % self.bottom.count]
+     }else{
+     self.arrayBottom.append(UIImage())
+     }
+     
+     if self.top.count > 0 {
+     self.arrayTop[i] = self.top[i % self.top.count]
+     }else{
+     self.arrayTop.append(UIImage())
+     }
+     
+     if self.wool.count > 0 {
+     self.arrayWool[i] = self.wool[i % self.wool.count]
+     }else{
+     self.arrayWool.append(UIImage())
+     }
+     i += 1
+     }
+     print("Reached 184")
+     
+     self.bottom.removeAll()
+     self.top.removeAll()
+     self.wool.removeAll()
+     print(self.bottom)
+     
+     print("Reached 191")
+     
+     /*
+     self.array[0] = self.arrayTop[0]
+     self.array[1] = self.arrayBottom[0]
+     self.array[2] = self.arrayWool[0]
+     */
+     
+     }
+     }
+     }
+     })
+     
+     }*/
     func pickOutfits()
     {
+        //     let semaphoretwo = DispatchSemaphore(value: 0)
         index = 0
         self.arrayBottom.removeAll()
         self.arrayTop.removeAll()
@@ -84,66 +270,48 @@ class SwipeViewController: UIViewController, UICollectionViewDataSource, UIColle
                 
                 print("Reached 83")
                 
-                if let obj2 = objects{
-                    
-                    print("The size of PFObjects array is \(obj2.count)")
-                    for a in obj2 {
-                        print("\(a["concept"])")
-                    }
-                    
-                }
-                
-                print("Reached 97")
-                
                 if let images = objects{
                     
-                    // if there are images uploaded by the user
-                    if images.count > 0{
+                    if images.count > 0 {
                         
-                        print("Concepts are \(self.concepts)")
                         print("Reached 104")
                         for image in images{
                             
-                            if (image["concept"] as? String) == self.concepts[0]{
+                            if ((image["concept"] as? String) == self.concepts[0]) {
                                 
                                 print("Match")
+                                print(image["imageFile"])
                                 if let imageFile = image["imageFile"] as? PFFile {
-                                    imageFile.getDataInBackground(block: { (data, error) in
-                                        if error != nil {
-                                            print(error!)
-                                        }else{
-                                            if let nsdata = data{
-                                                if let pic = UIImage(data: nsdata){
-                                                    
-                                                    self.top.append(pic)
-                                                    print("Success at top")
-                                                }else{
-                                                    print("Not appending")
-                                                }
-                                            }
-                                        }
-                                    })
+                                    print("entered imageFile block")
+                                    let datao = try! imageFile.getData()
+                                    
+                                    print("reached 118")
+                                    if let pic = UIImage(data: datao){
+                                        
+                                        self.top.append(pic)
+                                        print("Success at top")
+                                    }else{
+                                        print("Not appending")
+                                    }
+                                    
                                 } else {
                                     
                                     print("PFFIle not converting")
                                 }
                             } else if (image["concept"] as? String) == self.concepts[1]{
+                                
                                 if let imageFile = image["imageFile"] as? PFFile {
-                                    imageFile.getDataInBackground(block: { (data, error) in
-                                        if error != nil {
-                                            print(error!)
-                                        }else{
-                                            if let nsdata = data{
-                                                if let pic = UIImage(data: nsdata){
-                                                    
-                                                    self.bottom.append(pic)
-                                                    print("Success at bottom")
-                                                }else{
-                                                    print("Not appending")
-                                                }
-                                            }
-                                        }
-                                    })
+                                    
+                                    
+                                    let datao = try! imageFile.getData()
+                                    if let pic = UIImage(data: datao){
+                                        
+                                        self.bottom.append(pic)
+                                        print("Success at wool")
+                                    }else{
+                                        print("Not appending")
+                                    }
+                                    
                                 } else {
                                     
                                     print("PFFIle not converting")
@@ -151,24 +319,18 @@ class SwipeViewController: UIViewController, UICollectionViewDataSource, UIColle
                             } else if (image["concept"] as? String) == self.concepts[2]{
                                 
                                 if let imageFile = image["imageFile"] as? PFFile {
-                                    imageFile.getDataInBackground(block: { (data, error) in
-                                        if error != nil {
-                                            print(error!)
-                                        }else{
-                                            if let nsdata = data{
-                                                if let pic = UIImage(data: nsdata){
-                                                    
-                                                    self.wool.append(pic)
-                                                    print("Success at wool")
-                                                }else{
-                                                    print("Not appending")
-                                                }
-                                            }
-                                        }
-                                    })
+                                    let datao = try! imageFile.getData()
+                                    if let pic = UIImage(data: datao){
+                                        
+                                        self.wool.append(pic)
+                                        print("Success at wool")
+                                    }else{
+                                        print("Not appending")
+                                    }
+                                    
                                 } else {
                                     
-                                    print("PFFIle not converting")
+                                    print("PFFile not converting")
                                 }
                             }
                         }
@@ -181,20 +343,23 @@ class SwipeViewController: UIViewController, UICollectionViewDataSource, UIColle
                         print("Max count is \(maxCount)")
                         var i = 0
                         while i < maxCount{
-                            if self.bottom.count > 0 {
-                                self.arrayBottom[i] = self.bottom[i % self.bottom.count]
-                            }else{
-                                self.arrayBottom.append(UIImage())
-                            }
+                            
+                            print("\(i)")
                             
                             if self.top.count > 0 {
-                                self.arrayTop[i] = self.top[i % self.top.count]
+                                self.arrayTop.append(self.top[i % (self.top.count)])
                             }else{
                                 self.arrayTop.append(UIImage())
                             }
                             
+                            if self.bottom.count > 0 {
+                                self.arrayBottom.append(self.bottom[i % (self.bottom.count)])
+                            }else{
+                                self.arrayBottom.append(UIImage())
+                            }
+                            
                             if self.wool.count > 0 {
-                                self.arrayWool[i] = self.wool[i % self.wool.count]
+                                self.arrayWool.append(self.wool[i % (self.wool.count)])
                             }else{
                                 self.arrayWool.append(UIImage())
                             }
@@ -209,11 +374,12 @@ class SwipeViewController: UIViewController, UICollectionViewDataSource, UIColle
                         
                         print("Reached 191")
                         
-                        /*
-                         self.array[0] = self.arrayTop[0]
-                         self.array[1] = self.arrayBottom[0]
-                         self.array[2] = self.arrayWool[0]
-                         */
+                        self.array.append(self.arrayTop[0])
+                        self.array.append(self.arrayBottom[0])
+                        self.array.append(self.arrayWool[0])
+                        
+                        self.imageFrame.reloadData()
+
                         
                     }
                 }
@@ -224,7 +390,7 @@ class SwipeViewController: UIViewController, UICollectionViewDataSource, UIColle
     func updateImage(rightSwipe : Bool){
         
         if rightSwipe{
-            if index < arrayTop.count{
+            if index < arrayTop.count - 1{
                 index += 1
             }
             array[0] = arrayTop[index % arrayTop.count]
@@ -260,27 +426,27 @@ class SwipeViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         if gestureRecognizer.state == UIGestureRecognizerState.ended{
             if label.center.x < 100{
-                print("Not Chosen")
+                print("Right")
                 updateImage(rightSwipe: false)
             }
             else if label.center.x > self.view.bounds.width - 100{
-                print("Chosen")
+                print("Left")
                 updateImage(rightSwipe: true)
             }
+            rotation = CGAffineTransform(rotationAngle: 0)
+            
+            stretchAndRotation = rotation.scaledBy(x: 1, y: 1)
+            
+            label.transform = stretchAndRotation
+            
+            label.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 2)
         }
-        
-        rotation = CGAffineTransform(rotationAngle: 0)
-        
-        stretchAndRotation = rotation.scaledBy(x: 1, y: 1)
-        
-        label.transform = stretchAndRotation
-        
-        label.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 2)
     }
     
     
     
     func getTemperature(city : String) -> (Double){
+        let semaphore = DispatchSemaphore(value: 0)
         
         var temperature = 0.0
         
@@ -325,10 +491,11 @@ class SwipeViewController: UIViewController, UICollectionViewDataSource, UIColle
                         
                     }
                 }
-                
+                semaphore.signal()
             }
             
             task.resume()
+            semaphore.wait()
             
         }
             
@@ -337,7 +504,7 @@ class SwipeViewController: UIViewController, UICollectionViewDataSource, UIColle
             print("Couldn't find weather for that city, please try another")
         }
         
-        print("The returning temp is \(temperature)")
-        return temperature
+        print("The returning temp is \(temperature - 273.15)")
+        return temperature - 273.15
     }
 }

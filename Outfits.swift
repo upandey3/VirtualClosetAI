@@ -22,20 +22,28 @@ class Outfits
         let temperature = input_temperature
         
         // jacket weather
+        print("Temp: \(temperature)")
         
         if (temperature <= 10.0)
         {
+            print("Case 1: \(temperature)")
+            outputArray.removeAll()
             outputArray.append("shirt")
             outputArray.append("pants")
             outputArray.append("jacket")
+            
+            return outputArray
         }
             // sweater weather
             
         else if (temperature > 10.0 && temperature <= 15.0)
         {
+            outputArray.removeAll()
             outputArray.append("shirt")
             outputArray.append("pants")
             outputArray.append("sweater")
+            
+            return outputArray
         }
             // for all temperatures above 15.0
             
@@ -84,10 +92,13 @@ class Outfits
                     }
                 }
             }
+            outputArray.removeAll()
             outputArray.append(output_concept_2)     //top
             outputArray.append(output_concept)   //bottom
             outputArray.append("")
+            
+            return outputArray
         }
-        return outputArray
+        
     }
 }

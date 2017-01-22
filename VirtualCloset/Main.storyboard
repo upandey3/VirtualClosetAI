@@ -199,7 +199,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="U6N-Pk-Pkk">
                                 <rect key="frame" x="16" y="31" width="343" height="592"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Qhr-g6-uu7">
                                     <size key="itemSize" width="300" height="200"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -257,6 +257,6 @@
         <image name="shirt icon.png" width="1165" height="1024"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0AJ-ae-6y0"/>
+        <segue reference="fWF-gF-ciQ"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -74,13 +74,13 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UIIm
         }
         else {
             
-             self.activityind = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-             self.activityind.center = self.view.center
-             self.activityind.hidesWhenStopped = true
-             self.activityind.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-             self.activityind.startAnimating()
-             self.view.addSubview(self.activityind)
-             UIApplication.shared.beginIgnoringInteractionEvents()
+            self.activityind = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            self.activityind.center = self.view.center
+            self.activityind.hidesWhenStopped = true
+            self.activityind.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+            self.activityind.startAnimating()
+            self.view.addSubview(self.activityind)
+            UIApplication.shared.beginIgnoringInteractionEvents()
             
             
             //--------------Using Clarifai to find concept-------------------//
@@ -92,12 +92,12 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UIIm
                 
                 //let i = UIImage(named: "IMG_3492.jpg")
                 //let clarifaiImage = ClarifaiImage(url: "")
-            
+                
                 let clarifaiImage = ClarifaiImage(image: currImage)
                 print("line 93 \n")
                 if let a = app {
                     a.getModelByName("general-v1.3", completion: { (model, error) in
-                        
+
                         print("line 97 \n")
                         if error != nil {
                             
@@ -108,68 +108,74 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UIIm
                             print("line 109 \n")
                             if let img = clarifaiImage {
                                 model?.predict(on: [img], completion: { (outputs, error) in
-                                    //c is array of ClarifyOutput with 1 ClarifyObject
-                                    if let c = outputs {
-                                        //d is an array of ClariyConcepts
-                                        if let d = c[0].concepts {
-                                            //val is a concept
-                                            print("line 108 \n")
-                                            for concept in d{
-                                                
-                                                if self.setOfConcepts.contains(concept.conceptName!){
+                                        //c is array of ClarifyOutput with 1 ClarifyObject
+                                        if let c = outputs {
+                                            //d is an array of ClariyConcepts
+                                            if let d = c[0].concepts {
+                                                //val is a concept
+                                                for concept in d{
                                                     
-                                                    self.theConcept = concept.conceptName!
-                                                    print("the concept: \(concept.conceptName!) :\(concept.score)")
+                                                    if self.setOfConcepts.contains(concept.conceptName!){
+                                                        
+                                                        self.theConcept = concept.conceptName!
+                                                        print("the concept: \(concept.conceptName!) :\(concept.score)")
+                                                        
+                                                        // ----------Start sending to server ----------------//
+                                                        
+                                                        self.sendToParse()
+                                                        
+                                                        //------------Finished sending to server ------------//
+                                                        
+                                                        self.containsConcepts = true
+                                                        //break
+                                                    }
+                                                    print ("output: \(concept.conceptName!) :\(concept.score)")
                                                     
-                                                    // ----------Start sending to server ----------------//
-                                                    
-                                                    self.sendToParse()
-                                                    
-                                                    //------------Finished sending to server ------------//
-                                                    
-                                                    self.containsConcepts = true
-                                                    //break
                                                 }
-                                                print ("output: \(concept.conceptName!) :\(concept.score)")
-                                                
-                                            }
-                                            if self.activityind.isAnimating{
-                                                print("it's animating")
-                                                self.activityind.stopAnimating()
-                                                UIApplication.shared.endIgnoringInteractionEvents()
-                                            }
-                                            if self.containsConcepts{
-                                                self.containsConcepts = false
-                                            } else {
-                                                self.createAlert(title: "Unable to recognize the image!", message: "Please try a better image")
+                                                if self.activityind.isAnimating{
+                                                    
+                                                    DispatchQueue.main.sync(){
+                                                    
+                                                        print("it's animating")
+                                                        self.activityind.stopAnimating()
+                                                        UIApplication.shared.endIgnoringInteractionEvents()
+                                                    }
+                                                    
+
+                                                }
+                                                if self.containsConcepts{
+                                                    self.containsConcepts = false
+                                                } else {
+                                                    self.createAlert(title: "Unable to recognize the image!", message: "Please try a better image")
+                                                }
                                             }
                                         }
-                                    }
                                 })
                             }
                         }
-                        
                     })
                 } else {
                     
                     print ("Model could not be returned")
                 }
-
+                
             }
             
         }
-       // if activityind.isAnimating{
-       //     print("it's animating 2")
-            
-       //     activityind.stopAnimating()
-       //     UIApplication.shared.endIgnoringInteractionEvents()
-        //}
+        /*
+        if activityind.isAnimating{
+             print("it's animating 2")
+        
+             activityind.stopAnimating()
+             UIApplication.shared.endIgnoringInteractionEvents()
+        }
+         */
         print("line 190 \n")
-
+        
         
     }
     func sendToParse(){
-    
+        
         // Images class with objectId, concept, UserId, Image
         
         let imageClass = PFObject(className: "Images")
@@ -185,12 +191,16 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UIIm
         imageClass.saveInBackground { (success, error) in
             
             if self.activityind.isAnimating{
-                print("it's animating 3")
-
-                self.activityind.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
+                
+                DispatchQueue.main.sync(){
+                    
+                    print("it's animating")
+                    self.activityind.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
+                }
+                
+                
             }
-            
             print("line 145 \n")
             if error != nil {
                 
@@ -198,7 +208,7 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UIIm
                 
             } else {
                 print("adding to closet")
-                self.createAlert(title: "Success!", message: "The \(self.theConcept) has been added to your closet")
+                self.createAlert(title: "Success!", message: "Your \(self.theConcept) has been added to your closet!")
                 self.shirtView.image = UIImage(named: "shirt icon.png")
                 self.theImage = nil // Resetting theImage
                 self.theConcept = "" // Resetting theConcept
@@ -207,7 +217,7 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UIIm
             }
             
         }
-    
+        
     }
     func createAlert(title: String, message :String){
         
