@@ -20,6 +20,7 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UITe
             if val != ""{
                 City = val
                 createAlert(title: "Updated city!", message: "Location has now changed to \(City)")
+                cityField.placeholder = City
                 
                 
             print("City is \(City)")
