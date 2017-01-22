@@ -113,12 +113,22 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UIIm
                                             //d is an array of ClariyConcepts
                                             if let d = c[0].concepts {
                                                 //val is a concept
+                                                var ii = 0
                                                 for concept in d{
                                                     
-                                                    if self.setOfConcepts.contains(concept.conceptName!){
+                                                    if self.setOfConcepts.contains(concept.conceptName!) && ii == 0{
                                                         
                                                         self.theConcept = concept.conceptName!
-                                                        print("the concept: \(concept.conceptName!) :\(concept.score)")
+                                                        /*
+                                                        if let x = d as? NSDictionary{
+                                                            if ll = x["sweater"]{
+                                                            
+                                                            }
+                                                            print("Sweater: \(x["sweater"])")
+                                                        }
+ */
+                                                        
+                                                        print("the concept: \(self.theConcept) :\(concept.score)")
                                                         
                                                         // ----------Start sending to server ----------------//
                                                         
@@ -128,6 +138,7 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UIIm
                                                         
                                                         self.containsConcepts = true
                                                         //break
+                                                        ii += 1
                                                     }
                                                     print ("output: \(concept.conceptName!) :\(concept.score)")
                                                     
