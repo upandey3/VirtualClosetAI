@@ -17,9 +17,13 @@
 		81BA817B1A49E0E500E65899 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA817A1A49E0E500E65899 /* SystemConfiguration.framework */; };
 		81BA817F1A49E0F000E65899 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA817E1A49E0F000E65899 /* libstdc++.6.dylib */; };
 		EC26173E878E0214455F74DC /* Pods_VirtualCloset.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B556D2D6D97556AAB8F8D7E2 /* Pods_VirtualCloset.framework */; };
+		FC2FCFF61E34949700C9FA5B /* Outfits.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2FCFF51E34949700C9FA5B /* Outfits.swift */; };
 		FC6C95651E32FEA10061741B /* RecoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6C95641E32FEA10061741B /* RecoViewController.swift */; };
 		FC6C95671E3343860061741B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC6C95661E3343860061741B /* Main.storyboard */; };
 		FC6C956D1E3358070061741B /* shirt icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FC6C956C1E3358070061741B /* shirt icon.png */; };
+		FC6C95731E33F1EE0061741B /* IMG_3492.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FC6C95721E33F1EE0061741B /* IMG_3492.jpg */; };
+		FC6C95831E3440940061741B /* SwipeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6C95821E3440940061741B /* SwipeCollectionViewCell.swift */; };
+		FC6C95851E3441D50061741B /* SwipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6C95841E3441D50061741B /* SwipeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,9 +43,13 @@
 		81BA817E1A49E0F000E65899 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81BA81801A49E10C00E65899 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		B556D2D6D97556AAB8F8D7E2 /* Pods_VirtualCloset.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VirtualCloset.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC2FCFF51E34949700C9FA5B /* Outfits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Outfits.swift; path = ../Outfits.swift; sourceTree = "<group>"; };
 		FC6C95641E32FEA10061741B /* RecoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoViewController.swift; sourceTree = "<group>"; };
 		FC6C95661E3343860061741B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		FC6C956C1E3358070061741B /* shirt icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shirt icon.png"; sourceTree = "<group>"; };
+		FC6C95721E33F1EE0061741B /* IMG_3492.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_3492.jpg; sourceTree = "<group>"; };
+		FC6C95821E3440940061741B /* SwipeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCollectionViewCell.swift; sourceTree = "<group>"; };
+		FC6C95841E3441D50061741B /* SwipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +113,11 @@
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				FC6C95641E32FEA10061741B /* RecoViewController.swift */,
 				81BA814C1A49DA1800E65899 /* ViewController.swift */,
+				FC2FCFF51E34949700C9FA5B /* Outfits.swift */,
+				FC6C95721E33F1EE0061741B /* IMG_3492.jpg */,
 				FC6C956C1E3358070061741B /* shirt icon.png */,
+				FC6C95821E3440940061741B /* SwipeCollectionViewCell.swift */,
+				FC6C95841E3441D50061741B /* SwipeViewController.swift */,
 				FC6C95661E3343860061741B /* Main.storyboard */,
 			);
 			path = VirtualCloset;
@@ -199,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC6C956D1E3358070061741B /* shirt icon.png in Resources */,
+				FC6C95731E33F1EE0061741B /* IMG_3492.jpg in Resources */,
 				814C3ACB1B69877600E307BB /* Images.xcassets in Resources */,
 				FC6C95671E3343860061741B /* Main.storyboard in Resources */,
 			);
@@ -259,9 +272,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC2FCFF61E34949700C9FA5B /* Outfits.swift in Sources */,
+				FC6C95851E3441D50061741B /* SwipeViewController.swift in Sources */,
 				81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
 				FC6C95651E32FEA10061741B /* RecoViewController.swift in Sources */,
+				FC6C95831E3440940061741B /* SwipeCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,6 +386,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.parse.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = VirtualCloset;
 				SWIFT_VERSION = 3.0;
+				VALID_ARCHS = arm64;
 			};
 			name = Debug;
 		};
@@ -390,6 +407,7 @@
 				PRODUCT_NAME = VirtualCloset;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
+				VALID_ARCHS = arm64;
 			};
 			name = Release;
 		};

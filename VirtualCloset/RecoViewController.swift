@@ -16,7 +16,8 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UIIm
     var activityind = UIActivityIndicatorView()
     let setOfConcepts = ["shirt", "polo", "sweater", "jacket", "pants", "briefs"]
     var theConcept = ""
-    //let theImage: UIImage? = nil
+    var theImage: UIImage? = nil
+    var containsConcepts = false
     
     @IBAction func logOutButton(_ sender: Any) {
         
@@ -35,7 +36,7 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UIIm
         imagePicker.allowsEditing = false
         
         self.present(imagePicker, animated:true, completion: nil)
- 
+        
     }
     
     
@@ -47,16 +48,18 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UIIm
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         imagePicker.allowsEditing = false
-                print ("Point 48")
+        print ("Point 48")
         self.present(imagePicker, animated:true, completion: nil)
-                print ("Point 50")
+        print ("Point 50")
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             
             shirtView.image = image
+            theImage = image
             imagePicked = true
+            
             
         }
         self.dismiss(animated: true, completion: nil)
@@ -70,36 +73,39 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UIIm
             
         }
         else {
-            activityind = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-            activityind.center = self.view.center
-            activityind.hidesWhenStopped = true
-            activityind.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-            activityind.startAnimating()
-            view.addSubview(activityind)
-            UIApplication.shared.beginIgnoringInteractionEvents()
+            
+             self.activityind = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+             self.activityind.center = self.view.center
+             self.activityind.hidesWhenStopped = true
+             self.activityind.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+             self.activityind.startAnimating()
+             self.view.addSubview(self.activityind)
+             UIApplication.shared.beginIgnoringInteractionEvents()
+            
             
             //--------------Using Clarifai to find concept-------------------//
             //--------------------------------------------------------------//
             print("line 83 \n")
-            if let currImage = shirtView.image{
+            if let currImage = theImage{
                 
                 let app = ClarifaiApp(appID: "j39FbCuOGp8ET1BeFX-RHHWQPnQtANTVR-CfTBEX", appSecret: "PpZyoDvid6Mgxwx_aVNYRUphZtg9VRG2zZtmxwNV")
-                //let i = UIImage(named: "IMG_3492.jpg")
-                //let clarifaiImage = ClarifaiImage(image: i)//currImage)
-                let clarifaiImage = ClarifaiImage(url: "http://ec2-54-186-136-62.us-west-2.compute.amazonaws.com/parse/files/cd99a626499d05f54cf13158d8da6b4d8bb23ae6/e5eddd4d0d987db833c242315d5cf96c_image.jpg")
                 
-                print("line 89 \n")
+                //let i = UIImage(named: "IMG_3492.jpg")
+                //let clarifaiImage = ClarifaiImage(url: "")
+            
+                let clarifaiImage = ClarifaiImage(image: currImage)
+                print("line 93 \n")
                 if let a = app {
                     a.getModelByName("general-v1.3", completion: { (model, error) in
                         
-                                        print("line 93 \n")
+                        print("line 97 \n")
                         if error != nil {
                             
                             print("Could recognize image!")
                             
                         } else {
                             
-                                            print("line 100 \n")
+                            print("line 109 \n")
                             if let img = clarifaiImage {
                                 model?.predict(on: [img], completion: { (outputs, error) in
                                     //c is array of ClarifyOutput with 1 ClarifyObject
@@ -114,19 +120,32 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UIIm
                                                     
                                                     self.theConcept = concept.conceptName!
                                                     print("the concept: \(concept.conceptName!) :\(concept.score)")
-                                                    break
+                                                    
+                                                    // ----------Start sending to server ----------------//
+                                                    
+                                                    self.sendToParse()
+                                                    
+                                                    //------------Finished sending to server ------------//
+                                                    
+                                                    self.containsConcepts = true
+                                                    //break
                                                 }
                                                 print ("output: \(concept.conceptName!) :\(concept.score)")
                                                 
                                             }
+                                            if self.activityind.isAnimating{
+                                                print("it's animating")
+                                                self.activityind.stopAnimating()
+                                                UIApplication.shared.endIgnoringInteractionEvents()
+                                            }
+                                            if self.containsConcepts{
+                                                self.containsConcepts = false
+                                            } else {
+                                                self.createAlert(title: "Unable to recognize the image!", message: "Please try a better image")
+                                            }
                                         }
                                     }
                                 })
-                                
-                            } else {
-                                
-                                print ("Image is not valid")
-                                
                             }
                         }
                         
@@ -137,47 +156,59 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UIIm
                 }
 
             }
-            print("line 137 \n")
-
-            //--------------------Found concept ----------------------------//
-            //--------------------------------------------------------------//
             
-            // Images class with objectId, concept, UserId, Image
-            let imageClass = PFObject(className: "Images")
-            
-            imageClass["concept"] = theConcept
-                
-            imageClass["UserId"] = PFUser.current()?.objectId!
-            
-            let imageData = UIImageJPEGRepresentation(shirtView.image!, 0.5) //UIImagePNGRepresentation(imageToPost.image!)
-            
-            let imageFile = PFFile(name: "image.jpg", data: imageData!)
-            
-            imageClass["imageFile"] = imageFile
-            
-            imageClass.saveInBackground { (success, error) in
-                
-                self.activityind.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
-                
-                if error != nil {
-                    
-                    self.createAlert(title: "Oops! Something went wrong.", message: "Unable to add image. Please try again later.")
-                    
-                } else {
-                    
-                    self.createAlert(title: "Success!", message: "The clothing item(\(self.theConcept))) has been added to your closet")
-                    self.shirtView.image = UIImage(named: "shirt icon.png")
-                    
-                    self.imagePicked = false
-                    
-                }
-                
-            }
         }
+       // if activityind.isAnimating{
+       //     print("it's animating 2")
+            
+       //     activityind.stopAnimating()
+       //     UIApplication.shared.endIgnoringInteractionEvents()
+        //}
+        print("line 190 \n")
+
         
     }
+    func sendToParse(){
     
+        // Images class with objectId, concept, UserId, Image
+        
+        let imageClass = PFObject(className: "Images")
+        imageClass["concept"] = theConcept
+        imageClass["UserId"] = PFUser.current()?.objectId!
+        
+        print("line 180")
+        let imageData = UIImageJPEGRepresentation(theImage!, 0.5)
+        let imageFile = PFFile(name: "image.jpg", data: imageData!)
+        imageClass["imageFile"] = imageFile
+        print("line 141 \n")
+        
+        imageClass.saveInBackground { (success, error) in
+            
+            if self.activityind.isAnimating{
+                print("it's animating 3")
+
+                self.activityind.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
+            }
+            
+            print("line 145 \n")
+            if error != nil {
+                
+                self.createAlert(title: "Oops! Something went wrong.", message: "Unable to add image. Please try again later.")
+                
+            } else {
+                print("adding to closet")
+                self.createAlert(title: "Success!", message: "The \(self.theConcept) has been added to your closet")
+                self.shirtView.image = UIImage(named: "shirt icon.png")
+                self.theImage = nil // Resetting theImage
+                self.theConcept = "" // Resetting theConcept
+                self.imagePicked = false
+                
+            }
+            
+        }
+    
+    }
     func createAlert(title: String, message :String){
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
@@ -195,6 +226,7 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UIIm
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         // Do any additional setup after loading the view.
     }

@@ -20,16 +20,19 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - Alamofire (4.3.0)
   - Clarifai (2.1.0):
     - AFNetworking (~> 2.0)
 
 DEPENDENCIES:
+  - Alamofire
   - Clarifai
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
   Clarifai: dfd7281b01ed3d321c90a73028dd71f84c3bcc70
 
-PODFILE CHECKSUM: ec1fe01494ede48ea2a2aa2b611236801e1fdd1d
+PODFILE CHECKSUM: 78c0cb8e5ed8117649b2f01e453fe88f9fd0988a
 
 COCOAPODS: 1.1.1

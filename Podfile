@@ -7,5 +7,6 @@ target 'VirtualCloset' do
 
   # Pods for VirtualCloset
   pod 'Clarifai'
+  pod 'Alamofire'
 
 end

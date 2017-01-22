@@ -136,7 +136,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(_ animated: Bool) {
         
         if PFUser.current() != nil {
-            
             print("PF is not nil")
             performSegue(withIdentifier: "ShowReco", sender: self)
         }
