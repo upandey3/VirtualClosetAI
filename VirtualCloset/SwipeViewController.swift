@@ -23,6 +23,7 @@ class SwipeViewController: UIViewController, UICollectionViewDataSource, UIColle
     var arrayWool : [UIImage] = []
     var index = 0
     
+    @IBOutlet weak var welcomeField: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +34,8 @@ class SwipeViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         let temperature = getTemperature(city: city)
         
+        let far = (temperature * (9/5)) + 32
+        welcomeField.text = ("Welcome to \(City). It's \(Int(far)) degrees F")
         let object = Outfits()
         concepts = object.getConcepts(input_temperature : temperature)
         print("Concepts are \(self.concepts)")
@@ -46,6 +49,9 @@ class SwipeViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         // Do any additional setup after loading the view.
     }
+    /*override func viewDidAppear(_ animated: Bool) {
+        pickOutfits()
+    }*/
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -67,12 +73,12 @@ class SwipeViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
     func pickOutfits()
     {
-        //     let semaphoretwo = DispatchSemaphore(value: 0)
         index = 0
+        
         self.arrayBottom.removeAll()
         self.arrayTop.removeAll()
         self.arrayWool.removeAll()
-        self.array.removeAll()
+        array.removeAll()
         
         print("Reached 71")
         let query = PFQuery(className: "Images")

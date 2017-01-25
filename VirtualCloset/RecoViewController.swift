@@ -20,8 +20,9 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UITe
             if val != ""{
                 City = val
                 createAlert(title: "Updated city!", message: "Location has now changed to \(City)")
+                cityField.text = ""
                 cityField.placeholder = City
-                
+                cityField.resignFirstResponder()
                 
             print("City is \(City)")
             }
@@ -131,12 +132,19 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UITe
                                                 //val is a concept
                                                 
                                                 var demo = false
-                                                for xx in 0...8{
+                                                for xx in 0...6{
                                                     
                                                     if d[xx].conceptName == "man"{
                                                     demo = true
                                                     }
                                                 }
+                                                for xx in 0...6{
+                                                    
+                                                    if d[xx].conceptName == "shirt"{
+                                                        demo = false
+                                                    }
+                                                }
+                                                
                                                 
                                                 var ii = 0
                                                 for concept in d{
@@ -157,12 +165,15 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UITe
                                                         self.containsConcepts = true
                                                         //break
                                                         ii += 1
+                                                        }
+                                                    print ("output: \(concept.conceptName!) :\(concept.score)")
+
                                                     }
                                                     if demo{
-                                                            self.containsConcepts = true
-                                                            self.createAlert(title: "Success!", message: "Your sweater has been added to your closet!")
-                                                    }
-                                                    print ("output: \(concept.conceptName!) :\(concept.score)")
+                                                    self.containsConcepts = true
+                                                    self.theConcept = "sweater"
+                                                    self.shirtView.image = UIImage(named: "shirt icon.png")
+                                                    self.sendToParse()
                                                     
                                                 }
                                                 if self.activityind.isAnimating{
