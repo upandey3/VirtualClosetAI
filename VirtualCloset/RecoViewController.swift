@@ -22,11 +22,11 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UITe
                 createAlert(title: "Updated city!", message: "Location has now changed to \(City)")
                 cityField.text = ""
                 cityField.placeholder = City
-                cityField.resignFirstResponder()
-                
-            print("City is \(City)")
+                //cityField.resignFirstResponder()
+                print("City is \(City)")
             }
-                  }
+        }
+        self.view.endEditing(true)
     }
     
     var imagePicked = false
@@ -114,7 +114,7 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UITe
                 print("line 93 \n")
                 if let a = app {
                     a.getModelByName("general-v1.3", completion: { (model, error) in
-
+                        
                         print("line 97 \n")
                         if error != nil {
                             
@@ -125,75 +125,75 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UITe
                             print("line 109 \n")
                             if let img = clarifaiImage {
                                 model?.predict(on: [img], completion: { (outputs, error) in
-                                        //c is array of ClarifyOutput with 1 ClarifyObject
-                                        if let c = outputs {
-                                            //d is an array of ClariyConcepts
-                                            if let d = c[0].concepts {
-                                                //val is a concept
+                                    //c is array of ClarifyOutput with 1 ClarifyObject
+                                    if let c = outputs {
+                                        //d is an array of ClariyConcepts
+                                        if let d = c[0].concepts {
+                                            //val is a concept
+                                            
+                                            var demo = false
+                                            for xx in 0...6{
                                                 
-                                                var demo = false
-                                                for xx in 0...6{
-                                                    
-                                                    if d[xx].conceptName == "man"{
+                                                if d[xx].conceptName == "man"{
                                                     demo = true
-                                                    }
-                                                }
-                                                for xx in 0...6{
-                                                    
-                                                    if d[xx].conceptName == "shirt"{
-                                                        demo = false
-                                                    }
-                                                }
-                                                
-                                                
-                                                var ii = 0
-                                                for concept in d{
-                                                    
-                                                    if self.setOfConcepts.contains(concept.conceptName!) && ii == 0{
-                                                        
-                                                        self.theConcept = concept.conceptName!
-                                                        
-                                                        print("the concept: \(self.theConcept) :\(concept.score)")
-                                                        
-                                                        // ----------Start sending to server ----------------//
-                                                        
-                                                        self.sendToParse()
-                                                        
-                                                        //------------Finished sending to server ------------//
-                                                        
-                                                        
-                                                        self.containsConcepts = true
-                                                        //break
-                                                        ii += 1
-                                                        }
-                                                    print ("output: \(concept.conceptName!) :\(concept.score)")
-
-                                                    }
-                                                    if demo{
-                                                    self.containsConcepts = true
-                                                    self.theConcept = "sweater"
-                                                    self.shirtView.image = UIImage(named: "shirt icon.png")
-                                                    self.sendToParse()
-                                                    
-                                                }
-                                                if self.activityind.isAnimating{
-                                                    
-                                                    DispatchQueue.main.sync(){
-                                                    
-                                                        print("it's animating")
-                                                        self.activityind.stopAnimating()
-                                                        UIApplication.shared.endIgnoringInteractionEvents()
-                                                    }
-                                                    
-
-                                                }
-                                                if self.containsConcepts{
-                                                    self.containsConcepts = false
-                                                } else {
-                                                    self.createAlert(title: "Unable to recognize the image!", message: "Please try a better image")
                                                 }
                                             }
+                                            for xx in 0...6{
+                                                
+                                                if d[xx].conceptName == "shirt"{
+                                                    demo = false
+                                                }
+                                            }
+                                            
+                                            
+                                            var ii = 0
+                                            for concept in d{
+                                                
+                                                if self.setOfConcepts.contains(concept.conceptName!) && ii == 0{
+                                                    
+                                                    self.theConcept = concept.conceptName!
+                                                    
+                                                    print("the concept: \(self.theConcept) :\(concept.score)")
+                                                    
+                                                    // ----------Start sending to server ----------------//
+                                                    
+                                                    self.sendToParse()
+                                                    
+                                                    //------------Finished sending to server ------------//
+                                                    
+                                                    
+                                                    self.containsConcepts = true
+                                                    //break
+                                                    ii += 1
+                                                }
+                                                print ("output: \(concept.conceptName!) :\(concept.score)")
+                                                
+                                            }
+                                            if demo{
+                                                self.containsConcepts = true
+                                                self.theConcept = "sweater"
+                                                self.shirtView.image = UIImage(named: "shirt icon.png")
+                                                self.sendToParse()
+                                                
+                                            }
+                                            if self.activityind.isAnimating{
+                                                
+                                                DispatchQueue.main.sync(){
+                                                    
+                                                    print("it's animating")
+                                                    self.activityind.stopAnimating()
+                                                    UIApplication.shared.endIgnoringInteractionEvents()
+                                                }
+                                                
+                                                
+                                            }
+                                            if self.containsConcepts{
+                                                self.containsConcepts = false
+                                            } else {
+                                                self.createAlert(title: "Unable to recognize the image!", message: "Please try a better image")
+                                            }
                                         }
+                                    }
                                 })
                             }
                         }
@@ -206,14 +206,7 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UITe
             }
             
         }
-        /*
-        if activityind.isAnimating{
-             print("it's animating 2")
         
-             activityind.stopAnimating()
-             UIApplication.shared.endIgnoringInteractionEvents()
-        }
-         */
         print("line 190 \n")
         
         
@@ -227,7 +220,8 @@ class RecoViewController: UIViewController, UINavigationControllerDelegate, UITe
         imageClass["UserId"] = PFUser.current()?.objectId!
         
         print("line 180")
-        let imageData = UIImageJPEGRepresentation(theImage!, 0.5)
+        //let imageData = UIImageJPEGRepresentation(theImage!, 0.5)
+        let imageData = UIImagePNGRepresentation(theImage!)
         let imageFile = PFFile(name: "image.jpg", data: imageData!)
         imageClass["imageFile"] = imageFile
         print("line 141 \n")

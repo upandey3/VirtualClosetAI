@@ -337,15 +337,19 @@
                                 </items>
                                 <color key="barTintColor" red="0.63252061605453491" green="0.49617832899093628" blue="0.95694583654403687" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </toolbar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Igb-A3-1Gb">
-                                <rect key="frame" x="46" y="28" width="283" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Igb-A3-1Gb">
+                                <rect key="frame" x="16" y="28" width="343" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.46025305986404419" green="0.42388349771499634" blue="0.99874824285507202" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Igb-A3-1Gb" firstAttribute="trailing" secondItem="8mE-Eu-sgO" secondAttribute="trailingMargin" id="CVc-3L-FY3"/>
+                            <constraint firstItem="Igb-A3-1Gb" firstAttribute="leading" secondItem="8mE-Eu-sgO" secondAttribute="leadingMargin" id="Cwn-lC-gCP"/>
+                            <constraint firstItem="Igb-A3-1Gb" firstAttribute="top" secondItem="Sxe-3A-9Pn" secondAttribute="bottom" constant="8" id="zbz-6N-MwM"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="imageFrame" destination="U6N-Pk-Pkk" id="FQ2-Lv-Fys"/>

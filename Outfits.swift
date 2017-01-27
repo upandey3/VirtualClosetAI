@@ -24,7 +24,7 @@ class Outfits
         // jacket weather
         print("Temp: \(temperature)")
         
-        if (temperature <= 10.0)
+        if (temperature <= 7)
         {
             print("Case 1: \(temperature)")
             outputArray.removeAll()
@@ -36,7 +36,7 @@ class Outfits
         }
             // sweater weather
             
-        else if (temperature > 10.0 && temperature <= 15.0)
+        else if (temperature > 7.0 && temperature <= 20.0)
         {
             outputArray.removeAll()
             outputArray.append("shirt")
@@ -93,8 +93,10 @@ class Outfits
                 }
             }
             outputArray.removeAll()
-            outputArray.append(output_concept_2)     //top
-            outputArray.append(output_concept)   //bottom
+            outputArray.append("polo")
+            outputArray.append("briefs")
+            //outputArray.append(output_concept_2)     //top
+            //outputArray.append(output_concept)   //bottom
             outputArray.append("")
             
             return outputArray
